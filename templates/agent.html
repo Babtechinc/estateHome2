@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- head-Section -->
+	<div class="page-title-section">
+		<div class="container">
+			<div class="pull-left page-title">
+				<a href="#">
+				<h2>our agents</h2>
+				</a>
+			</div>
+			<div class="pull-right breadcrumb">
+				<a href="{% url 'index' %}">home</a><span class="fa fa-arrow-circle-right sep"></span><a href="#">our agents</a>
+			</div>
+		</div>
+	</div>
+
+<!-- Search-Section -->
+    <div class="search-section">
+        <div class="container">
+            <form action="{% url 'search' %}">
+                <div class="select-wrapper select-smaill" id='select-rent'>
+                    <p>
+                        Rent or Sale
+                    </p>
+                    <select name="deal" class='elselect'>
+					<option>any</option>
+					<option value="rent">Rent</option>
+					<option value="sale">Sale</option>
+				</select>
+                </div>
+                {% if property_type %}
+                <div class="select-wrapper select-big" id='select-property'>
+                    <p>
+                        Property type
+                    </p>
+                      <select name="property" class='elselect'>
+					<option >any</option>
+                        {% for key,value in property_type.items%}
+					<option value="{{ key }}">{{value }}</option>
+					 {% endfor %}
+				</select>
+                </div>
+                {% endif %}
+
+                <div class="select-wrapper select-big">
+                    <p>
+                        locations
+                    </p>
+                    <select name="location" class='elselect'>
+					<option value="">any</option>
+					 {% for key,value in location.items%}
+					<option value="{{ key }}">{{value }}</option>
+					 {% endfor %}
+				</select>
+
+
+
+
+                </div>
+                <div class="select-wrapper select-small">
+                    <p>
+                        Beds
+                    </p>
+
+                    <select name="bed" class='elselect'>
+<option value="">any</option>
+                        {% for key,value in beds.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+
+
+				</select>
+                </div>
+                <div class="select-wrapper select-small">
+                    <p>
+                        Baths
+                    </p>
+                    <select name="bath" class='elselect'>
+<option value="">any</option>
+					  {% for key,value in baths.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <div class="select-wrapper select-medium">
+                    <p>
+                        Sq ft
+                    </p>
+                    <select name="sqft" class='elselect'>
+					<option >any</option>
+					 {% for key,value in sq_ft.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <div class="select-wrapper select-medium">
+                    <p>
+                        min price
+                    </p>
+                    <select name='min_price'class='elselect'>
+					<option value="any">any</option>
+					 {% for key,value in price.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <div class="select-wrapper select-medium">
+                    <p>
+                        Max price
+                    </p>
+                    <select name="max_price" class='elselect'>
+					<option value="any">any</option>
+					<{% for key,value in price.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <input type="submit" value="search" class='yellow-btn'>
+            </form>
+        </div>
+    </div>
+<!-- content-Section -->
+<div class="content-section ">
+	<div class="container ">
+		<!-- single-agent -->
+{% for foo in agentdict %}
+		<div class="single-agent">
+			<div class="image-box">
+				<img src= "{{ foo.agent_img.url }}" alt="agent">
+				<ul class="social-icons">
+					<li><a href="#" class="fa fa-envelope-o"></a></li>
+					<li><a href="#" class="fa fa-twitter"></a></li>
+					<li><a href="#" class="fa fa-linkedin"></a></li>
+					<li><a href="#" class="fa fa-facebook"></a></li>
+				</ul>
+			</div>
+			<div class="desc-box">
+				<h4>{{ foo.name }}</h4>
+				<p class="person-number">
+					<i class="fa fa-phone"></i> {{ foo.number }}</p>
+				<p class="person-email">
+					<i class="fa fa-envelope"></i> {{ foo.email}}</p>
+				<p class="person-fax">
+					<i class="fa fa-print"></i> {{ foo.number }}</p>
+				<a href="{% url 'agent_full' foo.id %}" class='gray-btn'>view full profile</a>
+			</div>
+		</div>
+  {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+      <!-- Slider-Section -->
+        <div class="main-flexslider">
+            <ul class="slides">
+                <li class='slides' id='slide-n1'><img src=" {% static 'img/slide-01.jpg' %}" alt="slide 01">
+                    <div class="slide-box">
+                        <h2>6571 Mill Creek Cir </h2>
+                        <p>
+                            Situated on a half-acre corner allotment with two separate titles in the wonderful country township of Paruna, only 20 minutes drive from the town of Loxton.
+                        </p>
+                        <ul class="slide-item-features">
+                            <li><span class="fa fa-arrows-alt"></span>5000 Sq Ft</li>
+                            <li><span class="fa fa-inbox"></span>3 bedrooms</li>
+                            <li><span class="fa fa-male"></span>2 bathrooms</li>
+                            <li><span class="fa fa-truck"></span>1 garage</li>
+                        </ul>
+                        <div class="slider-buttons-wrapper">
+                            <a href="#" class="yellow-btn">$370,000</a>
+                            <a href="#" class="gray-btn"><span class="fa fa-file-text-o"></span>Details</a>
+                        </div>
+                    </div>
+                </li>
+<li class='slides' id='slide-n1'><img src=" {% static 'img/slide-03.jpg' %}" alt="slide 01">
+                    <div class="slide-box">
+                        <h2>6571 Mill Creek Cir </h2>
+                        <p>
+                            Situated on a half-acre corner allotment with two separate titles in the wonderful country township of Paruna, only 20 minutes drive from the town of Loxton.
+                        </p>
+                        <ul class="slide-item-features">
+                            <li><span class="fa fa-arrows-alt"></span>5000 Sq Ft</li>
+                            <li><span class="fa fa-inbox"></span>3 bedrooms</li>
+                            <li><span class="fa fa-male"></span>2 bathrooms</li>
+                            <li><span class="fa fa-truck"></span>1 garage</li>
+                        </ul>
+                        <div class="slider-buttons-wrapper">
+                            <a href="#" class="yellow-btn">$370,000</a>
+                            <a href="#" class="gray-btn"><span class="fa fa-file-text-o"></span>Details</a>
+                        </div>
+                    </div>
+                </li>
+                <li class='slides' id='slide-n1'><img src=" {% static 'img/slide-02.jpg' %}" alt="slide 01">
+                    <div class="slide-box">
+                        <h2>6571 Mill Creek Cir </h2>
+                        <p>
+                            Situated on a half-acre corner allotment with two separate titles in the wonderful country township of Paruna, only 20 minutes drive from the town of Loxton.
+                        </p>
+                        <ul class="slide-item-features">
+                            <li><span class="fa fa-arrows-alt"></span>5000 Sq Ft</li>
+                            <li><span class="fa fa-inbox"></span>3 bedrooms</li>
+                            <li><span class="fa fa-male"></span>2 bathrooms</li>
+                            <li><span class="fa fa-truck"></span>1 garage</li>
+                        </ul>
+                        <div class="slider-buttons-wrapper">
+                            <a href="#" class="yellow-btn">$370,000</a>
+                            <a href="#" class="gray-btn"><span class="fa fa-file-text-o"></span>Details</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    <!-- Search-Section -->
+{% include 'partials/_search.html' %}
+    {% if key %}
+
+     <div class="row listings-items-wrapper">
+
+
+<div class="recent-listings">
+        <div class="container">
+            <div class="title-box">
+                <h3>Recent Listings</h3>
+                <div class="bordered">
+                </div>
+            </div>
+  {% for foo in key %}
+             <div class="col-md-4 listing-single-item">
+				<div class="item-inner">
+					<div class="image-wrapper">
+						<img src="{{ foo.street_img.url }}" alt="gallery">
+						<a href="#" class='fa fa-{{ foo.type }}{% if foo.type == 'building' %}-o{% endif %}  property-type-icon'></a>
+					</div>
+					<div class="desc-box">
+						<h4><a href="#">{{foo.street}}</a></h4>
+						<ul class="slide-item-features item-features">
+							<li><span class="fa fa-arrows-alt"></span>{{ foo.SqFt }} Sq Ft</li>
+							<li><span class="fa fa-male"></span>{{ foo.bathroom }} bathrooms</li>
+							<li><span class="fa fa-inbox"></span>{{ foo.bedrooms }} bedrooms</li>
+						</ul>
+						<div class="buttons-wrapper">
+							<a href="#" class="yellow-btn">${{ foo.price }}</a>
+							<a href="#" class="gray-btn"><span class="fa fa-file-text-o"></span>Details</a>
+						</div>
+						<div class="clearfix">
+						</div>
+					</div>
+				</div>
+			</div> {% endfor %}
+    </div>{% endif %}
+</div>
+    {% if agentdict %}
+
+
+     <!-- Agents-Section -->
+    <div class="agents-section">
+        <div class="container">
+            <div class="title-box">
+                <h3>our agents</h3>
+                <div class="bordered">
+                </div>
+            </div>
+            <div class="owl-carousel agents-slider">
+               {% for foo in agentdict %}
+		<div class="single-agent">
+			<div class="image-box">
+				<img src= "{{ foo.agent_img.url }}" alt="agent">
+				<ul class="social-icons">
+					<li><a href="#" class="fa fa-envelope-o"></a></li>
+					<li><a href="#" class="fa fa-twitter"></a></li>
+					<li><a href="#" class="fa fa-linkedin"></a></li>
+					<li><a href="#" class="fa fa-facebook"></a></li>
+				</ul>
+			</div>
+			<div class="desc-box">
+				<h4>{{ foo.name }}</h4>
+				<p class="person-number">
+					<i class="fa fa-phone"></i> {{ foo.number }}</p>
+				<p class="person-email">
+					<i class="fa fa-envelope"></i> {{ foo.email}}</p>
+				<p class="person-fax">
+					<i class="fa fa-print"></i> {{ foo.number }}</p>
+				<a href="#" class='gray-btn'>view full profile</a>
+			</div>
+		</div>
+  {% endfor %}
+            </div>
+        </div>
+    </div>{% endif %}
+{% endblock %}

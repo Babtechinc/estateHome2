@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <body id='top' class="property-details-page">
+   <!-- head-Section -->
+        <div class="page-title-section">
+            <div class="container">
+                <div class="pull-left page-title">
+                    <a href="{% url 'property' %}">
+                        <h2>property listings</h2>
+                    </a>
+                </div>
+                <div class="pull-right breadcrumb">
+                    <a href="{% url 'index' %}">home</a><span class="fa fa-arrow-circle-right sep"></span><a href="#">property listings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search-Section -->
+    <div class="search-section">
+        <div class="container">
+            <form action="{% url 'search' %}">
+                <div class="select-wrapper select-smaill" id='select-rent'>
+                    <p>
+                        Rent or Sale
+                    </p>
+                    <select name="deal" class='elselect'>
+					<option>any</option>
+					<option value="rent">Rent</option>
+					<option value="sale">Sale</option>
+				</select>
+                </div>
+                {% if property_type %}
+                <div class="select-wrapper select-big" id='select-property'>
+                    <p>
+                        Property type
+                    </p>
+                      <select name="property" class='elselect'>
+					<option >any</option>
+                        {% for key,value in property_type.items%}
+					<option value="{{ key }}">{{value }}</option>
+					 {% endfor %}
+				</select>
+                </div>
+                {% endif %}
+
+                <div class="select-wrapper select-big">
+                    <p>
+                        locations
+                    </p>
+                    <select name="location" class='elselect'>
+					<option value="">any</option>
+					 {% for key,value in location.items%}
+					<option value="{{ key }}">{{value }}</option>
+					 {% endfor %}
+				</select>
+
+
+
+
+                </div>
+                <div class="select-wrapper select-small">
+                    <p>
+                        Beds
+                    </p>
+
+                    <select name="bed" class='elselect'>
+<option value="">any</option>
+                        {% for key,value in beds.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+
+
+				</select>
+                </div>
+                <div class="select-wrapper select-small">
+                    <p>
+                        Baths
+                    </p>
+                    <select name="bath" class='elselect'>
+<option value="">any</option>
+					  {% for key,value in baths.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <div class="select-wrapper select-medium">
+                    <p>
+                        Sq ft
+                    </p>
+                    <select name="sqft" class='elselect'>
+					<option >any</option>
+					 {% for key,value in sq_ft.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <div class="select-wrapper select-medium">
+                    <p>
+                        min price
+                    </p>
+                    <select name='min_price'class='elselect'>
+					<option value="any">any</option>
+					 {% for key,value in price.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <div class="select-wrapper select-medium">
+                    <p>
+                        Max price
+                    </p>
+                    <select name="max_price" class='elselect'>
+					<option value="any">any</option>
+					<{% for key,value in price.items %}
+					<option value="{{ value }}">{{ key }}</option>
+                        {% endfor %}
+				</select>
+                </div>
+                <input type="submit" value="search" class='yellow-btn'>
+            </form>
+        </div>
+    </div>
+    <!-- content-Section -->
+    <div class="content-section">
+        <div class="container">
+            <div class="row">
+<div class="col-md-8 page-content">
+
+           <h4 class="box-title-1" style="color: white;font-size:large ">Property Listed by {{ profile.name.capitalize }}</h4>
+                <div class="content-section">
+	<div class="container">
+		<div class="row listings-items-wrapper">
+    {% if key%}
+        {% for foo in key %}
+<div class="col-md-4 listing-single-item">
+				<div class="item-inner">
+					<div class="image-wrapper">
+						<img src="{{ foo.street_img.url }}" style=" height: 270px;"  alt="gallery">
+						<a href="#" class='fa fa-{{ foo.type }}{% if foo.type == 'building' %}-o{% endif %}  property-type-icon'></a>
+					</div>
+					<div class="desc-box">
+						<h4><a href="#">{{foo.street}}</a></h4>
+						<ul class="slide-item-features item-features">
+							<li><span class="fa fa-arrows-alt"></span>{{ foo.SqFt }} Sq Ft</li>
+							<li><span class="fa fa-male"></span>{{ foo.bathroom }} bathrooms</li>
+							<li><span class="fa fa-inbox"></span>{{ foo.bedrooms }} bedrooms</li>
+						</ul>
+						<div class="buttons-wrapper">
+							<a href="#" class="yellow-btn">${{ foo.price }}</a>
+
+							<a href="{% url 'property_full' foo.id %}"class="gray-btn"><span class="fa fa-file-text-o"></span>Details</a>
+						</div>
+						<div class="clearfix">
+						</div>
+					</div>
+				</div>
+			</div> {% endfor %}
+    {% endif %}
+</div>
+
+		<div class="pagination-wrapper">
+            {% if key.has_other_pages %}
+			<ul class="pagination">
+                {% if key.has_previous %}
+                <li class="page-item"><a class="page-link"  href="?page={{ key.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">&laquo;</a></li>
+                    {% endif %}
+             {% for i in key.paginator.page_range %}
+             {% if key.number == i %}
+                 <li class="page-item active">
+      <a class="page-link" href="#">{{ i }}</a>
+    </li>
+                 {% else %}
+                 <li class="page-item"><a class="page-link"  href="?page={{i}}">{{ i }}</a></li>
+
+                 {% endif %}
+
+
+             {% endfor %}
+{% if key.has_next %}
+                <li class="page-item"><a class="page-link"  href="?page={{ key.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">&raquo;</a></li>
+                    {% endif %}
+
+			</ul>
+
+            {% endif %}
+		</div>
+	</div>
+</div>
+                </div>
+                <div class="col-md-4 blog-sidebar">
+                    <div class="sidebar-widget author-profile">
+                        <h4 class="widget-title">Listed by</h4>
+                        <div class="image-box">
+                            <img src="{{ profile.agent_img.url }}" alt="agent">
+                            <ul class="social-icons">
+                                <li>
+                                    <a href="#" class="fa fa-envelope"></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="fa fa-twitter"></a>
+                                </li>
+                               <li>
+                                    <a href="#" class="fa fa-linkedin"></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="fa fa-facebook"></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="desc-box">
+                            <h4>{{ profile.name }}</h4>
+                            <p class="person-number">
+                                <i class="fa fa-phone"></i> {{ profile.number }}
+                            </p>
+                            <p class="person-email">
+                                <i class="fa fa-envelope"></i> {{ profile.email }}
+                            </p>
+                            <p class="person-fax">
+                                <i class="fa fa-print"></i> {{profile.number}}
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="sidebar-widget similar-listings-widget">
+                        <h4 class="widget-title">similar listings</h4>
+                        <ul class="similar-listings">
+                            <li class="tab-content-item">
+                                <div class="pull-left thumb">
+                                    <img src="img/blog/25_blog-thumb_1.png" alt="thumbnail">
+                                </div>
+                                <h5><a href="#">Envato’s Most Wanted: Courses & Learning Themes - $7,000</a></h5>
+                            </li>
+                            <li class="tab-content-item">
+                                <div class="pull-left thumb">
+                                    <img src="img/blog/26_blog-thumb_2.png" alt="thumbnail">
+                                </div>
+                                <h5><a href="#">Envato’s Most Wanted: Courses & Learning Themes - $7,000</a></h5>
+                            </li>
+                            <li class="tab-content-item">
+                                <div class="pull-left thumb">
+                                    <img src="img/blog/27_blog-thumb_3.png" alt="thumbnail">
+                                </div>
+                                <h5><a href="#">Envato’s Most Wanted: Courses & Learning Themes - $7,000</a></h5>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-widget text-widget">
+                        <h4 class="widget-title">Text Widget</h4>
+                        <p class='first-paragraph'>
+                            This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
+                        </p>
+                        <p>
+                            auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </body>
+    {% endblock %}
