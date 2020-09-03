@@ -46,8 +46,8 @@
                     </li>
                 </ul>
                 <div id="login-box" class='pull-right'>
-                    <a href="{% url 'login' %}" class='fa fa-user'><span>Login</span></a>
-                    <a href="{% url 'register'%}" class='fa fa-pencil'><span>Register</span></a>
+{#                    <a href="{% url 'login' %}" class='fa fa-user'><span>Login</span></a>#}
+{#                    <a href="{% url 'register'%}" class='fa fa-pencil'><span>Register</span></a>#}
                 </div>
             </div>
         </div>
@@ -77,12 +77,12 @@
                                 {% if request.get_full_path == property %}class="active"{% endif %}
 
                                 ><a href="{%url 'property' %}">Listings</a></li>
-                                <li><a href="property-details.html">Property Details</a></li>
+{#                                <li><a href="property-details.html">Property Details</a></li>#}
                                 <li {% url 'agent' as agent %}
                                 {% if request.get_full_path == agent%}class="active"{% endif %}
                                 ><a href="{% url 'agent' %}">agents</a></li>
-                                <li><a href="blog.html">News</a></li>
-                                <li><a href="single.html">Single Post</a></li>
+{#                                <li><a href="blog.html">News</a></li>#}
+{#                                <li><a href="single.html">Single Post</a></li>#}
                                 <!-- <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -118,18 +118,18 @@
             <div class="col-md-3 footer-recent-posts">
                 <h3 class='footer-title'>recent posts</h3>
                 <ul>
-                    <li><a href="#"><i class="fa fa-arrow-circle-right"></i> New Search Platform Update</a></li>
-                    <li><a href="#"><i class="fa fa-arrow-circle-right"></i> Envato's Most Wanted - $5,000 for Ghost Themes</a></li>
-                    <li><a href="#"><i class="fa fa-arrow-circle-right"></i> Update: WordPress Theme Submission Requirements</a></li>
+                    <li><a href="#"><i class="fa fa-arrow-circle-right"></i> Hi  I am Babs</a></li>
+                    <li><a href="#"><i class="fa fa-arrow-circle-right"></i> </a></li>
+                    <li><a href="#"><i class="fa fa-arrow-circle-right"></i></a></li>
                 </ul>
             </div>
             <div class="col-md-3 footer-contact-info">
                 <h3 class='footer-title'>contact info</h3>
                 <p class="website-number">
-                    <i class="fa fa-phone"></i> 900 123 456 789
+                    <i class="fa fa-phone"></i> 08183976029
                 </p>
                 <p class="website-email">
-                    <i class="fa fa-envelope"></i> robbhatman@sweethome.com
+                    <i class="fa fa-envelope"></i> adegbola.babs@gmail.com
                 </p>
                 <p class="website-fax">
                     <i class="fa fa-print"></i> 900 123 456 789
