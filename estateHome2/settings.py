@@ -126,13 +126,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+
 STATICFILES_DIRS = (
 os.path.join(BASE_DIR,'Static'),
 )
 #media flo
-MEDIA_dangerROOT = os.path.join(BASE_DIR,'Media')
+MEDIA_dangerROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/Media/'
 
 from django.contrib.messages import constants as messages
